@@ -37,6 +37,7 @@ class Event(models.Model):
     description = models.CharField(max_length=255, blank=True)
     price = models.IntegerField(default=0)
     photo = models.ImageField(upload_to='events', blank=True, null=True)
+    date_and_time = models.DateTimeField(auto_now=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -58,6 +59,7 @@ class Chef(models.Model):
     chef_category = models.ForeignKey(ChefCategory, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    description = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

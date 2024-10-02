@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import RegexValidator
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     slug = models.SlugField(max_length=50, unique=True)
@@ -78,12 +80,26 @@ class Gallery(models.Model):
 
 
 class Contact(models.Model):
-    address = models.CharField(max_length=50)
-    phone = models.IntegerField(default=0)
-    email = models.CharField(max_length=50)
-    work_days = models.CharField(max_length=10)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    day_off = models.CharField(max_length=10)
+    item_title = models.CharField(max_length=50)
+    item_description = RichTextField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.item_title
+
+class Reservation(models.Model):
+    phone_regex = RegexValidator(regex=r'^\+?3?\d{9,15}', message="Phone number must be entered in the format: '+3999999999'")
+    name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50, validators=[phone_regex])
+    email = models.EmailField()
+    date = models.DateField()
+    time = models.TimeField()
+    people = models.IntegerField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

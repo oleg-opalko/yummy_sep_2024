@@ -22,21 +22,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Contact',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('address', models.CharField(max_length=50)),
-                ('phone', models.IntegerField(default=0)),
-                ('email', models.CharField(max_length=50)),
-                ('work_days', models.CharField(max_length=10)),
-                ('start_time', models.TimeField()),
-                ('end_time', models.TimeField()),
-                ('day_off', models.CharField(max_length=10)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Event',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

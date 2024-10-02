@@ -37,9 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 
     'home.apps.HomeConfig',
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 200,
+        'width': 800,
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

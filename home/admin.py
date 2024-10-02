@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Category, Dish, Event, Chef, ChefCategory, Gallery, Contact
 
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_visible', 'sort', 'created_at', 'updated_at')
@@ -11,17 +10,17 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     date_hierarchy = 'created_at'
 
-
+@admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort', 'created_at', 'updated_at')
+    list_display = ('created_at', 'name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort', 'updated_at')
     list_editable = ('name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort')
     list_filter = ('is_visible', 'created_at', 'updated_at')
     date_hierarchy = 'created_at'
 
 @admin.register(Event)
 class EventsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sort', 'is_visible', 'description', 'photo', 'price', 'created_at', 'updated_at')
-    list_editable = ('sort', 'is_visible', 'description', 'photo', 'price')
+    list_display = ('created_at', 'title', 'sort', 'is_visible', 'description', 'photo', 'price','date_and_time' ,'created_at', 'updated_at')
+    list_editable = ('title', 'sort', 'is_visible', 'description', 'photo', 'price', 'date_and_time')
     list_filter = ('is_visible',)
     date_hierarchy = 'created_at'
 
@@ -34,8 +33,8 @@ class ChefCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Chef)
 class ChefAdmin(admin.ModelAdmin):
-    list_display = ('created_at' ,'first_name', 'last_name', 'photo', 'updated_at')
-    list_editable = ('first_name', 'last_name', 'photo')
+    list_display = ('created_at' ,'first_name', 'last_name', 'photo', 'chef_category', 'updated_at')
+    list_editable = ('first_name', 'last_name', 'photo', 'chef_category')
     date_hierarchy = 'created_at'
 
 @admin.register(Gallery)
@@ -45,8 +44,4 @@ class GalleryAdmin(admin.ModelAdmin):
     list_filter = ('is_visible', 'position')
     date_hierarchy ='created_at'
 
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'address', 'phone', 'email', 'work_days', 'start_time', 'end_time', 'day_off', 'updated_at')
-    list_editable = ('address', 'phone', 'email', 'work_days', 'start_time', 'end_time', 'day_off')
-    date_hierarchy = 'created_at'
+admin.site.register(Contact)

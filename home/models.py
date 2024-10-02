@@ -10,6 +10,11 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __iter__(self):
+        dishes = self.dishes.filter(is_visible =True).order_by('sort')
+        for dish in dishes:
+            yield dish
+
     def __str__(self):
         return self.name
 
@@ -25,7 +30,7 @@ class Dish(models.Model):
     sort = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='dishes')
 
     def __str__(self):
         return self.name
@@ -37,7 +42,7 @@ class Event(models.Model):
     description = models.CharField(max_length=255, blank=True)
     price = models.IntegerField(default=0)
     photo = models.ImageField(upload_to='events', blank=True, null=True)
-    date_and_time = models.DateTimeField(auto_now=True)
+    date_and_time = models.DateTimeField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

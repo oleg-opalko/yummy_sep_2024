@@ -10,6 +10,13 @@ from home.templates.forms import ReservationForm
 
 def index(request):
 
+    if request.method == 'POST':
+        book_a_table_form = ReservationForm(request.POST)
+
+        if book_a_table_form.is_valid():
+            book_a_table_form.save()
+            return render(request, 'thanks.html')
+
     categories = Category.objects.filter(is_visible=True).order_by('sort')
     gallery = Gallery.objects.filter(is_visible=True)
     chefs = Chef.objects.all()

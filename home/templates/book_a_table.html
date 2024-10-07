@@ -12,37 +12,22 @@
       <div class="col-lg-4 reservation-img" style="background-image: url({% static 'img/reservation.jpg' %} );" data-aos="zoom-out" data-aos-delay="200"></div>
 
       <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
-        <form action="." method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+        <form action="{% url 'index' %}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
             {% csrf_token %}
             <div class="row gy-4">
-                <div class="col-lg-4 col-md-6">
-                    {{ book_a_table_form.name }}
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  {{ book_a_table_form.email }}
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  {{ book_a_table_form.phone }}
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  {{ book_a_table_form.date }}
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    {{ book_a_table_form.time }}
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  {{ book_a_table_form.people }}
-                  <div class="validate"></div>
-                </div>
-            </div>
-            <div class="form-group mt-3">
-                {{ book_a_table_form.message }}
-                <div class="validate"></div>
+                {% for field in book_a_table_form %}
+                    {% if field.name != 'message' %}
+                        <div class="col-lg-4 col-md-6">
+                            {{ field }}
+                            <div class="validate">{{ field.errors }}</div>
+                        </div>
+                        {% else %}
+                            <div class="form-group mt-3">
+                                {{ book_a_table_form.message }}
+                                <div class="validate">{{ field.errors }}</div>
+                            </div>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="mb-3">
                 <div class="loading">Loading</div>

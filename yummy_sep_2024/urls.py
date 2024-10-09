@@ -16,15 +16,21 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import login
 from django.urls import path
 
 from home.views import index, thanks
 from yummy_sep_2024 import settings
 
+from account.views import UserLoginView, UserRegisterView, logout
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('thanks/', thanks, name='thanks'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('register/', UserRegisterView.as_view(), name='register'),
+    path('logout/', logout, name='logout')
 ]
 
 if settings.DEBUG:

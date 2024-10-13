@@ -20,10 +20,13 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
     template_name = 'login.html'
 
-    def form_valid(self, form):
-        user = form.get_user()
-        login(self.request, user)
-        return redirect('index')
+
+    def get_success_url(self):
+        return self.request.GET.get('next', '/')
+    # def form_valid(self, form):
+    #     user = form.get_user()
+    #     login(self.request, user)
+    #     return redirect('index')
 
 def logout(request):
     auth_logout(request)
